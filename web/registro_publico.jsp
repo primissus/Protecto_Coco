@@ -8,7 +8,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        
+        <%@ page import="java.util.List,
+                javax.persistence.EntityManagerFactory,
+                javax.persistence.EntityManager,
+                modelo.Conferencia,
+                javax.persistence.Persistence,
+                javax.persistence.Query" %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
@@ -31,9 +36,25 @@
         Correo:
                 <input type="text" name="correo">
                 <br/>
+        Nombre de la conferencia:
+                <select name="id">
+                    <%
+                        EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "Proyecto_CocoPU" );
+                        EntityManager entitymanager = emfactory.createEntityManager();
+
+                        Query query = entitymanager.createQuery("Select c From Conferencia c ");
+                        List<Conferencia> conferencias = query.getResultList();
+
+                        for(Conferencia conferencia : conferencias) {
+                    %> 
+                    <option value=<%= conferencia.getId() %>><%= conferencia.getNombre() %></option>
+                    <%
+                        }
+                    %>
+                </select>        
     <p><input type="submit" value="Enviar"></p>
 </form>
         
-        
+    <a href="administrador_evento.jsp">Regresar</a>    
     </body>
 </html>

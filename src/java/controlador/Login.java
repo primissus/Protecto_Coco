@@ -14,6 +14,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,6 +55,9 @@ public class Login extends HttpServlet {
             
             for(Usuario usuario : usuarios) {
                 if(usuario.getPassword().equals(password)) {
+                    Cookie userCookie = new Cookie("tipo", usuario.getTipo());
+                    userCookie.setMaxAge(60*60*24*365); //Store cookie for 1 year
+                    response.addCookie(userCookie);
                     response.sendRedirect("administrador_evento.jsp");
                     return;
                 }

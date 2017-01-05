@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.Asistencia;
 
 /**
  *
@@ -42,6 +43,7 @@ public class registro_publico extends HttpServlet {
                   String domicilio = request.getParameter("domicilio");
                   String  telefono_contacto = request.getParameter("telefono_contacto");
                   String correo = request.getParameter("correo");
+                  int conferenciaID = Integer.parseInt(request.getParameter("id"));
                               
                   
                   modelo.Publico registro = new modelo.Publico();
@@ -53,22 +55,48 @@ public class registro_publico extends HttpServlet {
                  registro.setTelefono(telefono_contacto);
                  registro.setCorreo(correo);
                  
-                 
-                 
-                    
-          EntityManager em;
-          EntityManagerFactory emf;
-          emf = Persistence.createEntityManagerFactory("Proyecto_CocoPU");
-          em =emf.createEntityManager();
-          em.getTransaction().begin();
-          em.persist(registro);
-          em.flush();
-          em.getTransaction().commit();
-          em.close();
-          emf.close();
-          response.sendRedirect("correcto.jsp");
-  
-        
+          try {       
+            EntityManager em;
+            EntityManagerFactory emf;
+            emf = Persistence.createEntityManagerFactory("Proyecto_CocoPU");
+            em = emf.createEntityManager();
+            em.getTransaction().begin();
+            em.persist(registro);
+            em.flush();
+            em.getTransaction().commit(); 
+            
+            Asistencia asistencia = new Asistencia();
+            asistencia.setId(0);
+            asistencia.setIdConferencia(conferenciaID);
+            asistencia.setIdUsuario(registro.getId());
+            
+            em.getTransaction().begin();
+            em.persist(asistencia);
+            em.flush();
+            em.getTransaction().commit();
+            
+            em.close();
+            emf.close();
+            
+            mensaje("Registrado: " + registro.getId(), response.getWriter());
+            return;
+          }
+          catch(Exception ex){
+              
+          }
+          mensaje("Hubo un error", response.getWriter());
+    }
+    
+    private void mensaje(String mensaje, PrintWriter out) {
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>Creacion público</title>");
+        out.println("</head>");
+        out.println("<body>");
+        out.println("<p>" + mensaje + "</p>");
+        out.println("<a href=\"registro_publico.jsp\"> regresar </a>");
+        out.println("</body>");
+        out.println("</html>");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
