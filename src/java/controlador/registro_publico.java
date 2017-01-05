@@ -69,24 +69,7 @@ public class registro_publico extends HttpServlet {
           em.close();
           emf.close();
           response.sendRedirect("correcto.jsp");
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+  
         
     }
 

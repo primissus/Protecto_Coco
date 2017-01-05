@@ -27,13 +27,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "usuario")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Usuario_1.findAll", query = "SELECT u FROM Usuario_1 u")
-    , @NamedQuery(name = "Usuario_1.findById", query = "SELECT u FROM Usuario_1 u WHERE u.id = :id")
-    , @NamedQuery(name = "Usuario_1.findByNombre", query = "SELECT u FROM Usuario_1 u WHERE u.nombre = :nombre")
-    , @NamedQuery(name = "Usuario_1.findByApellido", query = "SELECT u FROM Usuario_1 u WHERE u.apellido = :apellido")
-    , @NamedQuery(name = "Usuario_1.findByUsername", query = "SELECT u FROM Usuario_1 u WHERE u.username = :username")
-    , @NamedQuery(name = "Usuario_1.findByPassword", query = "SELECT u FROM Usuario_1 u WHERE u.password = :password")
-    , @NamedQuery(name = "Usuario_1.findByTipo", query = "SELECT u FROM Usuario_1 u WHERE u.tipo = :tipo")})
+    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
+    , @NamedQuery(name = "Usuario.findById", query = "SELECT u FROM Usuario u WHERE u.id = :id")
+    , @NamedQuery(name = "Usuario.findByNombre", query = "SELECT u FROM Usuario u WHERE u.nombre = :nombre")
+    , @NamedQuery(name = "Usuario.findByApellido", query = "SELECT u FROM Usuario u WHERE u.apellido = :apellido")
+    , @NamedQuery(name = "Usuario.findByUsername", query = "SELECT u FROM Usuario u WHERE u.username = :username")
+    , @NamedQuery(name = "Usuario.findByPassword", query = "SELECT u FROM Usuario u WHERE u.password = :password")
+    , @NamedQuery(name = "Usuario.findByTipo", query = "SELECT u FROM Usuario u WHERE u.tipo = :tipo")})
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -154,7 +154,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.Usuario_1[ id=" + id + " ]";
+        return "modelo.Usuario[ id=" + id + " ]";
     }
     
 }
