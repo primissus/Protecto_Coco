@@ -114,7 +114,7 @@ public class registro_conferencia extends HttpServlet {
         out.println("</head>");
         out.println("<body>");
         out.println("<p>" + mensaje + "</p>");
-        out.println("<a href=\"nueva_cnferencia.jsp\"> regresar </a>");
+        out.println("<a href=\"nueva_conferencia.jsp\"> regresar </a>");
         out.println("</body>");
         out.println("</html>");
     }
