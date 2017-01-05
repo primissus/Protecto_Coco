@@ -42,8 +42,8 @@ public class registro_conferencia extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        String nombre = request.getParameter("nombre_conferencia");
-        String expositor = request.getParameter("nombre_expositor");
+        String nombre = request.getParameter("nombre");
+        String expositor = request.getParameter("expositor");
         int capacidad = 0;
         try {
             capacidad = Integer.parseInt(request.getParameter("capacidad"));
@@ -86,9 +86,10 @@ public class registro_conferencia extends HttpServlet {
         conferencia.setCosto(costo);
         conferencia.setEncargado(encargado);
         
+        try {
         EntityManager em;
           EntityManagerFactory emf;
-          emf = Persistence.createEntityManagerFactory("proyecto_cocoPU");
+          emf = Persistence.createEntityManagerFactory("Proyecto_CocoPU");
           em =emf.createEntityManager();
           em.getTransaction().begin();
           em.persist(conferencia);
@@ -96,9 +97,26 @@ public class registro_conferencia extends HttpServlet {
           em.getTransaction().commit();
           em.close();
           emf.close();
+          mensaje("Se ha creado el evento.", response.getWriter());
+         }
+        catch(Exception ex){
+            mensaje("Ocurrió un error.", response.getWriter());
+        }
           
-        response.sendRedirect("index.xhtml");
+        //response.sendRedirect("index.xhtml");
         
+    }
+    
+    private void mensaje(String mensaje, PrintWriter out) {
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>Creacion conferencia</title>");
+        out.println("</head>");
+        out.println("<body>");
+        out.println("<p>" + mensaje + "</p>");
+        out.println("<a href=\"nueva_cnferencia.jsp\"> regresar </a>");
+        out.println("</body>");
+        out.println("</html>");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
