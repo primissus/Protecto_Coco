@@ -7,17 +7,21 @@ package controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 /**
  *
- * @author trafalgar
+ * @author jason
  */
-@WebServlet(name = "login_consulta2", urlPatterns = {"/login_consulta2"})
-public class login_consulta2 extends HttpServlet {
+@WebServlet(name = "registro_admin", urlPatterns = {"/registro_admin"})
+public class registro_admin extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,18 +34,31 @@ public class login_consulta2 extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        String nombre = request.getParameter("nombre");
+        String apellido = request.getParameter("apellido");
+        String user_name = request.getParameter("user_name");
+        String Password = request.getParameter("Password");
+        String tipo = request.getParameter("tipo");
+            
+        modelo.Usuario usuario = new modelo.Usuario();
         
-            login_consulta co = new login_consulta();
-            String user = request.getParameter("username");
-            String pass = request.getParameter("password");
-            if(co.autenticacion (user, pass ))
-            {
-              response.sendRedirect("correcto.jsp");
-            } 
+        usuario.setId(0);
+        usuario.setNombre(nombre);
+        usuario.setApellido(apellido);
+        usuario.setUsername(user_name);
+        usuario.setPassword(Password);
+        usuario.setTipo(tipo);
+          
+        EntityManager em;
+        EntityManagerFactory emf;
+        emf = Persistence.createEntityManagerFactory("Proyecto_CocoPU");
+        em =emf.createEntityManager();
+        em.getTransaction().begin();
+        em.persist(usuario);
+        em.flush();
+        em.getTransaction().commit();
+        response.sendRedirect("correcto.jsp");
     }
-    
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

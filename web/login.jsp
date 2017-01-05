@@ -13,12 +13,12 @@
     </head>
     <body>
        
-        <form action="consulta_2" method="get">
+        <form action="Login" method="post">
          User name:
-                <input type="text" name="user_name">
+                <input type="text" name="username">
                 <br/>
          Password:
-                 <input type="text" name="password">
+                 <input type="password" name="password">
                 <br/>
     <p><input type="submit" value="Enviar"></p>
 </form>

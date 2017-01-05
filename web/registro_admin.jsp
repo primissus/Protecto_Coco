@@ -1,7 +1,7 @@
 <%-- 
     Document   : registro_admin
-    Created on : Jan 5, 2017, 2:29:18 AM
-    Author     : trafalgar
+    Created on : 4/01/2017, 07:50:33 PM
+    Author     : jason
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -12,33 +12,27 @@
         <title>JSP Page</title>
     </head>
     <body>
-        
-        
-       
-        <form action="registro_admin2" method="get">
-         Nombre:
-                <input type="text" name="nombre">
+        <form action="registro_admin" method="post">
+        Nombre:
+                <input type="text" name="nombre"/>
                 <br/>
-         Apellido:
-                 <input type="text" name="apellido">
-         
-                 <br/>
-                 Username:
-                 <input type="text" name="username">
+          Apellido:
+                <input type="text" name="apellido"/>
                 <br/>
-                Password:
-                 <input type="password" name="password" value="">
+                User name:
+                <input type="text" name="user_name"/>
                 <br/>
-                Tipo:
-                <input name="Administrador" type="checkbox" value=""/> Administrador
-                <input name="Encargado" type="checkbox" value=""/> Encargado
+         Password:
+                 <input type="text" name="Password"/>
                 <br/>
-                
-                
+        Tipo:
+                <select name="tipo">
+                    <option value="adm">Administador</option>
+                    <option value="enc">Encargado</option>
+                </select>
+                <br/>
     <p><input type="submit" value="Enviar"></p>
 </form>
-        
-        
         
         
         

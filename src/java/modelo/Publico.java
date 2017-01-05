@@ -16,6 +16,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -42,20 +43,24 @@ public class Publico implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 30)
     @Column(name = "nombre")
-    private int nombre;
+    private String nombre;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 40)
     @Column(name = "domicilio")
-    private int domicilio;
+    private String domicilio;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 10)
     @Column(name = "telefono")
-    private int telefono;
+    private String telefono;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 40)
     @Column(name = "correo")
-    private int correo;
+    private String correo;
 
     public Publico() {
     }
@@ -64,7 +69,7 @@ public class Publico implements Serializable {
         this.id = id;
     }
 
-    public Publico(Integer id, int nombre, int domicilio, int telefono, int correo) {
+    public Publico(Integer id, String nombre, String domicilio, String telefono, String correo) {
         this.id = id;
         this.nombre = nombre;
         this.domicilio = domicilio;
@@ -80,35 +85,35 @@ public class Publico implements Serializable {
         this.id = id;
     }
 
-    public int getNombre() {
+    public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(int nombre) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    public int getDomicilio() {
+    public String getDomicilio() {
         return domicilio;
     }
 
-    public void setDomicilio(int domicilio) {
+    public void setDomicilio(String domicilio) {
         this.domicilio = domicilio;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
-    public int getCorreo() {
+    public String getCorreo() {
         return correo;
     }
 
-    public void setCorreo(int correo) {
+    public void setCorreo(String correo) {
         this.correo = correo;
     }
 

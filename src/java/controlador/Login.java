@@ -7,21 +7,24 @@ package controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.Usuario;
 
 /**
  *
- * @author trafalgar
+ * @author law
  */
-@WebServlet(name = "registro_admin2", urlPatterns = {"/registro_admin2"})
-public class registro_admin2 extends HttpServlet {
+@WebServlet(name = "Login", urlPatterns = {"/Login"})
+public class Login extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,52 +37,32 @@ public class registro_admin2 extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
-        
-        
-        
-        
-            String nombre = request.getParameter("nombre");
-            String apellido = request.getParameter("apellido");
-            String user_name = request.getParameter("username");
-            String Password = request.getParameter("password");
-            String tipo = request.getParameter("tipo");
+        response.setContentType("text/html;charset=UTF-8");
+        try {
+            /* TODO output your page here. You may use following sample code. */
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
             
-            modelo.Usuario_1 registro1 = new modelo.Usuario_1();
-        
-          registro1.setId(0);
-          
-          registro1.setNombre(nombre);
-          registro1.setApellido(apellido);
-          registro1.setUsername(user_name);
-          registro1.setPassword(Password);
-          registro1.setTipo(apellido);
-          
-          
-          
-          EntityManager em;
-          EntityManagerFactory emf;
-          emf = Persistence.createEntityManagerFactory("proyecto_cocoPU");
-          em =emf.createEntityManager();
-          em.getTransaction().begin();
-          em.persist(registro1);
-          em.flush();
-          em.getTransaction().commit();
-          em.close();
-          emf.close();
-          
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+            EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "Proyecto_CocoPU" );
+            EntityManager entitymanager = emfactory.createEntityManager();
+            
+            Query query = entitymanager.createQuery("Select u From Usuario u " + "where u.username = " + "'" + username + "'");
+            List<Usuario> usuarios = query.getResultList();
+            
+            entitymanager.close();
+            emfactory.close();
+            
+            for(Usuario usuario : usuarios) {
+                if(usuario.getPassword().equals(password)) {
+                    response.sendRedirect("administrador_evento.jsp");
+                    return;
+                }
+            }
+        }
+        catch (IllegalArgumentException ex) {
+            ex.printStackTrace();
+        }
+        response.sendRedirect("login.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

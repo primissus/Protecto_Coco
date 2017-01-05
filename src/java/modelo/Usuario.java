@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author trafalgar
+ * @author law
  */
 @Entity
 @Table(name = "usuario")
@@ -32,7 +32,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Usuario.findByNombre", query = "SELECT u FROM Usuario u WHERE u.nombre = :nombre")
     , @NamedQuery(name = "Usuario.findByApellido", query = "SELECT u FROM Usuario u WHERE u.apellido = :apellido")
     , @NamedQuery(name = "Usuario.findByUsername", query = "SELECT u FROM Usuario u WHERE u.username = :username")
-    , @NamedQuery(name = "Usuario.findByPassword", query = "SELECT u FROM Usuario u WHERE u.password = :password")})
+    , @NamedQuery(name = "Usuario.findByPassword", query = "SELECT u FROM Usuario u WHERE u.password = :password")
+    , @NamedQuery(name = "Usuario.findByTipo", query = "SELECT u FROM Usuario u WHERE u.tipo = :tipo")})
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -61,6 +62,11 @@ public class Usuario implements Serializable {
     @Size(min = 1, max = 20)
     @Column(name = "password")
     private String password;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 4)
+    @Column(name = "tipo")
+    private String tipo;
 
     public Usuario() {
     }
@@ -69,12 +75,13 @@ public class Usuario implements Serializable {
         this.id = id;
     }
 
-    public Usuario(Integer id, String nombre, String apellido, String username, String password) {
+    public Usuario(Integer id, String nombre, String apellido, String username, String password, String tipo) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.username = username;
         this.password = password;
+        this.tipo = tipo;
     }
 
     public Integer getId() {
@@ -115,6 +122,14 @@ public class Usuario implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     @Override
