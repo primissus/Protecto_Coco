@@ -9,13 +9,6 @@
 <html>
     <head>
         
-        <%@ page import="java.util.List,
-                javax.persistence.EntityManagerFactory,
-                javax.persistence.EntityManager,
-                modelo.Conferencia,
-                javax.persistence.Persistence,
-                javax.persistence.Query" %>
-        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
@@ -34,23 +27,6 @@
                   <br/>
         Telefono:
                 <input type="text" name="telefono_contacto">
-                <br/>
-        Nombre Conferencia:
-                <select name="id">
-                <%
-                    EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "Proyecto_CocoPU" );
-                    EntityManager entitymanager = emfactory.createEntityManager();
-
-                    Query query = entitymanager.createQuery("Select c From Conferencia c ");
-                    List<Conferencia> conferencias = query.getResultList();
-
-                    for(Conferencia conferencia : conferencias) {
-                %> 
-                <option value=<%= conferencia.getId() %>><%= conferencia.getNombre() %></option>
-                <%
-                    }
-                %>
-            </select>
                 <br/>
         Correo:
                 <input type="text" name="correo">

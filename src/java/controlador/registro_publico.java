@@ -41,7 +41,6 @@ public class registro_publico extends HttpServlet {
                   String nombre = request.getParameter("nombre");
                   String domicilio = request.getParameter("domicilio");
                   String  telefono_contacto = request.getParameter("telefono_contacto");
-                  int  conferencia = Integer.parseInt(request.getParameter("id"));
                   String correo = request.getParameter("correo");
                               
                   
@@ -53,7 +52,6 @@ public class registro_publico extends HttpServlet {
                  registro.setDomicilio(domicilio);
                  registro.setTelefono(telefono_contacto);
                  registro.setCorreo(correo);
-                 registro.setIdConferencia(conferencia);
                  
                  
                  
