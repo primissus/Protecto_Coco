@@ -12,26 +12,27 @@
         <title>Cancelar conferencia</title>
     </head>
     <body>
-        <form action="cancel" method="get">
-        Conferencia:
-            <select name="id">
-                <%
-                    EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "Proyecto_CocoPU" );
-                    EntityManager entitymanager = emfactory.createEntityManager();
+            <form action="cancelar" method="get">
+            Conferencia:
+                <select name="id">
+                    <%
+                        EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "Proyecto_CocoPU" );
+                        EntityManager entitymanager = emfactory.createEntityManager();
 
-                    Query query = entitymanager.createQuery("Select c From Conferencia c ");
-                    List<Conferencia> conferencias = query.getResultList();
+                        Query query = entitymanager.createQuery("Select c From Conferencia c ");
+                        List<Conferencia> conferencias = query.getResultList();
 
-                    for(Conferencia conferencia : conferencias) {
-                %> 
-                <option value=<%= conferencia.getId() %>><%= conferencia.getNombre() %></option>
-                <%
-                    }
-                %>
-            </select>
-            <div>
-            <input type="submit" name="submit" value="Cancelar"/>
-            </div>
-        </form>
+                        for(Conferencia conferencia : conferencias) {
+                    %> 
+                    <option value=<%= conferencia.getId() %>><%= conferencia.getNombre() %></option>
+                    <%
+                        }
+                    %>
+                </select>
+                <div>
+                <input type="submit" name="submit" value="Cancelar"/>
+                </div>
+            </form>
+                <a href="administrador_evento.jsp">Regresar</a>
     </body>
 </html>

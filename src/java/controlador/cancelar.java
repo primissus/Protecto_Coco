@@ -15,13 +15,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.Conferencia;
 
 /**
  *
- * @author trafalgar
+ * @author law
  */
-@WebServlet(name = "registro_publico", urlPatterns = {"/registro_publico"})
-public class registro_publico extends HttpServlet {
+@WebServlet(name = "cancelar", urlPatterns = {"/cancelar"})
+public class cancelar extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,41 +35,24 @@ public class registro_publico extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
-        
-        
-                  String nombre = request.getParameter("nombre");
-                  String domicilio = request.getParameter("domicilio");
-                  String  telefono_contacto = request.getParameter("telefono_contacto");
-                  String correo = request.getParameter("correo");
-                              
-                  
-                  modelo.Publico registro = new modelo.Publico();
-       
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            if(request.getParameter("id") != null) {
+                int id = Integer.parseInt(request.getParameter("id"));
 
-                 registro.setId(0);
-                 registro.setNombre(nombre);
-                 registro.setDomicilio(domicilio);
-                 registro.setTelefono(telefono_contacto);
-                 registro.setCorreo(correo);
-                 
-                 
-                 
-                    
-          EntityManager em;
-          EntityManagerFactory emf;
-          emf = Persistence.createEntityManagerFactory("Proyecto_CocoPU");
-          em =emf.createEntityManager();
-          em.getTransaction().begin();
-          em.persist(registro);
-          em.flush();
-          em.getTransaction().commit();
-          em.close();
-          emf.close();
-          response.sendRedirect("correcto.jsp");
-  
-        
+                EntityManagerFactory emf = Persistence.createEntityManagerFactory( "Proyecto_CocoPU" );
+                EntityManager em = emf.createEntityManager();
+                Conferencia conferencia = em.find(Conferencia.class, id);
+
+                em.getTransaction().begin();
+                em.remove(conferencia);
+                em.getTransaction().commit();
+            }
+            
+            response.sendRedirect("cancelar.jsp");
+            
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
