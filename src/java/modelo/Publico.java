@@ -32,7 +32,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Publico.findByNombre", query = "SELECT p FROM Publico p WHERE p.nombre = :nombre")
     , @NamedQuery(name = "Publico.findByDomicilio", query = "SELECT p FROM Publico p WHERE p.domicilio = :domicilio")
     , @NamedQuery(name = "Publico.findByTelefono", query = "SELECT p FROM Publico p WHERE p.telefono = :telefono")
-    , @NamedQuery(name = "Publico.findByCorreo", query = "SELECT p FROM Publico p WHERE p.correo = :correo")})
+    , @NamedQuery(name = "Publico.findByCorreo", query = "SELECT p FROM Publico p WHERE p.correo = :correo")
+    , @NamedQuery(name = "Publico.findByIdConferencia", query = "SELECT p FROM Publico p WHERE p.idConferencia = :idConferencia")})
 public class Publico implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -61,6 +62,10 @@ public class Publico implements Serializable {
     @Size(min = 1, max = 40)
     @Column(name = "correo")
     private String correo;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "id_conferencia")
+    private int idConferencia;
 
     public Publico() {
     }
@@ -69,12 +74,13 @@ public class Publico implements Serializable {
         this.id = id;
     }
 
-    public Publico(Integer id, String nombre, String domicilio, String telefono, String correo) {
+    public Publico(Integer id, String nombre, String domicilio, String telefono, String correo, int idConferencia) {
         this.id = id;
         this.nombre = nombre;
         this.domicilio = domicilio;
         this.telefono = telefono;
         this.correo = correo;
+        this.idConferencia = idConferencia;
     }
 
     public Integer getId() {
@@ -115,6 +121,14 @@ public class Publico implements Serializable {
 
     public void setCorreo(String correo) {
         this.correo = correo;
+    }
+
+    public int getIdConferencia() {
+        return idConferencia;
+    }
+
+    public void setIdConferencia(int idConferencia) {
+        this.idConferencia = idConferencia;
     }
 
     @Override
