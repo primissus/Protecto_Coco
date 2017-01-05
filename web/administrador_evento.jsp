@@ -13,7 +13,25 @@
                        <a href="lista_registardos.jsp">Lista de registrados</a>
                         <br>
                         <a href="cancelar.jsp">Cancelar conferencia</a>
-                        <br>       
+                        <br>
+                        <a href="registro_publico.jsp">Registrar persona</a>
+                        <br>
+                        <%
+                            Cookie cookie = null;
+                            Cookie[] cookies = null;
+
+                            cookies = request.getCookies();
+                            if (cookies != null) {
+                               for (int i = 0; i < cookies.length; i++) {
+                                   cookie = cookies[i];
+                                   if(cookie.getName().equals("tipo")) {
+                                       if(cookie.getValue().equals("adm")){
+                                           out.println("<a href=\"registro_admin.jsp\">Resgistrar administrador/encargado</a><br>");
+                                       }
+                                   }
+                               }
+                            }
+                        %>
                     </ul> 
                 </form>
     </body>

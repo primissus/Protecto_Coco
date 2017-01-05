@@ -34,7 +34,7 @@
                 <br/>
     <p><input type="submit" value="Enviar"></p>
 </form>
-        
+        <a href="administrador_evento.jsp">Regresar</a>
         
         
     </body>
