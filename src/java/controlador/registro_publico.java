@@ -41,6 +41,7 @@ public class registro_publico extends HttpServlet {
                   String nombre = request.getParameter("nombre");
                   String domicilio = request.getParameter("domicilio");
                   String  telefono_contacto = request.getParameter("telefono_contacto");
+                  int  conferencia = Integer.parseInt(request.getParameter("id"));
                   String correo = request.getParameter("correo");
                               
                   
@@ -50,12 +51,16 @@ public class registro_publico extends HttpServlet {
                  registro.setId(0);
                  registro.setNombre(nombre);
                  registro.setDomicilio(domicilio);
-                 registro.setTelefono(correo);
+                 registro.setTelefono(telefono_contacto);
                  registro.setCorreo(correo);
+                 registro.setIdConferencia(conferencia);
+                 
+                 
+                 
                     
           EntityManager em;
           EntityManagerFactory emf;
-          emf = Persistence.createEntityManagerFactory("proyecto_cocoPU");
+          emf = Persistence.createEntityManagerFactory("Proyecto_CocoPU");
           em =emf.createEntityManager();
           em.getTransaction().begin();
           em.persist(registro);
