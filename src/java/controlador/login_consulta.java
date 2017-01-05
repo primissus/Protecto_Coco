@@ -7,6 +7,7 @@ package controlador;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import static modelo.Usuario_.password;
 
 /**
  *
@@ -19,8 +20,8 @@ public class login_consulta extends conexion
     PreparedStatement pst =null;
     ResultSet rs = null;
         try{
-            String consulta = "select * from login where user_name =? and Password=?";
-            pst = con.prepareStatement(consulta);
+            String consulta = "select * from usuario where username =? and password=?";
+            pst  = getConexion().prepareStatement(consulta);
             pst.setString(1, user_name);
             pst.setString(2, Password);
             rs = pst.executeQuery();
@@ -31,7 +32,7 @@ public class login_consulta extends conexion
                 System.err.printf("Error", e);
                  }finally{
             try{
-                        if(con != null) con.close();
+                        if(getConexion() != null) getConexion().close();
                         if(pst != null) pst.close();
                         if(rs != null) rs.close();
                             }   catch (Exception e){
@@ -40,7 +41,11 @@ public class login_consulta extends conexion
                             }
         return false;
     }
+    public static void main(String[] args){
+        login_consulta co =new login_consulta();
+        System.out.println(co.autenticacion("jaja", "jaja"));
     
+    }
     
     
     
