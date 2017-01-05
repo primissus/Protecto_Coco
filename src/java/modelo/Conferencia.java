@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author trafalgar
+ * @author law
  */
 @Entity
 @Table(name = "conferencia")
@@ -36,7 +36,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Conferencia.findByExpositor", query = "SELECT c FROM Conferencia c WHERE c.expositor = :expositor")
     , @NamedQuery(name = "Conferencia.findByCapacidad", query = "SELECT c FROM Conferencia c WHERE c.capacidad = :capacidad")
     , @NamedQuery(name = "Conferencia.findByFechaHora", query = "SELECT c FROM Conferencia c WHERE c.fechaHora = :fechaHora")
-    , @NamedQuery(name = "Conferencia.findBySala", query = "SELECT c FROM Conferencia c WHERE c.sala = :sala")})
+    , @NamedQuery(name = "Conferencia.findBySala", query = "SELECT c FROM Conferencia c WHERE c.sala = :sala")
+    , @NamedQuery(name = "Conferencia.findByDescripcion", query = "SELECT c FROM Conferencia c WHERE c.descripcion = :descripcion")
+    , @NamedQuery(name = "Conferencia.findByCosto", query = "SELECT c FROM Conferencia c WHERE c.costo = :costo")
+    , @NamedQuery(name = "Conferencia.findByEncargado", query = "SELECT c FROM Conferencia c WHERE c.encargado = :encargado")})
 public class Conferencia implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -68,6 +71,20 @@ public class Conferencia implements Serializable {
     @NotNull
     @Column(name = "sala")
     private int sala;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 200)
+    @Column(name = "descripcion")
+    private String descripcion;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "costo")
+    private int costo;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
+    @Column(name = "encargado")
+    private String encargado;
 
     public Conferencia() {
     }
@@ -76,13 +93,16 @@ public class Conferencia implements Serializable {
         this.id = id;
     }
 
-    public Conferencia(Integer id, String nombre, String expositor, int capacidad, Date fechaHora, int sala) {
+    public Conferencia(Integer id, String nombre, String expositor, int capacidad, Date fechaHora, int sala, String descripcion, int costo, String encargado) {
         this.id = id;
         this.nombre = nombre;
         this.expositor = expositor;
         this.capacidad = capacidad;
         this.fechaHora = fechaHora;
         this.sala = sala;
+        this.descripcion = descripcion;
+        this.costo = costo;
+        this.encargado = encargado;
     }
 
     public Integer getId() {
@@ -131,6 +151,30 @@ public class Conferencia implements Serializable {
 
     public void setSala(int sala) {
         this.sala = sala;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public int getCosto() {
+        return costo;
+    }
+
+    public void setCosto(int costo) {
+        this.costo = costo;
+    }
+
+    public String getEncargado() {
+        return encargado;
+    }
+
+    public void setEncargado(String encargado) {
+        this.encargado = encargado;
     }
 
     @Override
