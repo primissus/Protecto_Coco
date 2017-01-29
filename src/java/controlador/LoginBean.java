@@ -7,22 +7,11 @@ package controlador;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
-import javax.inject.Named;
-import javax.enterprise.context.Dependent;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.persistence.Cache;
-import javax.persistence.EntityGraph;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceUnitUtil;
-import javax.persistence.Query;
-import javax.persistence.SynchronizationType;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.metamodel.Metamodel;
-import javax.servlet.http.Cookie;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import modelo.Usuario;
 
 /**
@@ -51,8 +40,16 @@ public class LoginBean implements Serializable{
             return -2;
         if(username.isEmpty() || password.isEmpty())
             return -1;
-        if(Login.validate(username, password))
+        Usuario usuario = Login.validate(username, password);
+        if(usuario != null) {
+            HttpSession sesion = SesionUtils.getSession();
+            sesion.setAttribute("username", usuario.getUsername());
+            sesion.setAttribute("tipo", usuario.getTipo());
             return 1;
+        }
+        else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Usaurio y contraseña incorrectos", "Por favor ingresa un usuario y contraseña correctos"));
+        }
         return 0;
     }
 
@@ -72,8 +69,10 @@ public class LoginBean implements Serializable{
         this.password = password;
     }   
     
-    public void logout() {
-        
+    public int logout() {
+        HttpSession sesion = SesionUtils.getSession();
+        sesion.invalidate();
+        return 0;
     }
     
 }

@@ -12,24 +12,22 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import modelo.Usuario;
 
-public class Login {
-
-    public static Usuario validate(String username, String password) {
+/**
+ *
+ * @author law
+ */
+public class Selector {
+    
+    public static List<Usuario> getEncargados() {
         EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "Proyecto_CocoPU" );
         EntityManager entitymanager = emfactory.createEntityManager();
 
-        Query query = entitymanager.createQuery("Select u From Usuario u " + "where u.username = " + "'" + username + "'");
+        Query query = entitymanager.createQuery("Select u From Usuario u where u.tipo = 'enc'");
         List<Usuario> usuarios = query.getResultList();
 
         entitymanager.close();
         emfactory.close();
         
-        for(Usuario usuario : usuarios) {
-                if(usuario.getPassword().equals(password)) {
-                    return usuario;
-                }
-            }
-        return null;
+        return usuarios;
     }
-    
 }

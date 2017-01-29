@@ -82,9 +82,8 @@ public class Conferencia implements Serializable {
     private int costo;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 30)
     @Column(name = "encargado")
-    private String encargado;
+    private int encargado;
 
     public Conferencia() {
     }
@@ -93,7 +92,7 @@ public class Conferencia implements Serializable {
         this.id = id;
     }
 
-    public Conferencia(Integer id, String nombre, String expositor, int capacidad, Date fechaHora, int sala, String descripcion, int costo, String encargado) {
+    public Conferencia(Integer id, String nombre, String expositor, int capacidad, Date fechaHora, int sala, String descripcion, int costo, int encargado) {
         this.id = id;
         this.nombre = nombre;
         this.expositor = expositor;
@@ -169,11 +168,11 @@ public class Conferencia implements Serializable {
         this.costo = costo;
     }
 
-    public String getEncargado() {
+    public int getEncargado() {
         return encargado;
     }
 
-    public void setEncargado(String encargado) {
+    public void setEncargado(int encargado) {
         this.encargado = encargado;
     }
 
