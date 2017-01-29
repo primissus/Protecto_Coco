@@ -4,21 +4,39 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
         <title>Facelet Title</title>
+        <link rel="stylesheet" href="styles/index.css"/>
     </h:head>
     <h:body>
-     Menu
+        <div class="titulo">
+            <h1>TED</h1>
+            <p class="x">x</p>
+            <p class="texto">Colomos</p>
+        </div>
         <div class="cuerpo">
             <nav id="menu">
                 <h:form>
                     <ul>
-                        <li><h:commandLink action="registro_asistencia.jsp">Asistencia a conferencia</h:commandLink></li>
-                        <li><h:commandLink action="login.jsp">Login</h:commandLink></li>
-                    </ul> 
+                        <h:commandLink action="registro_asistencia.jsp"><li>Asistencia a conferencia</li></h:commandLink>
+                        <h:commandLink action="login.xhtml"><li>Login</li></h:commandLink>
+                    </ul>
                 </h:form>
             </nav>
         </div>
-        
-        
+        <div class="contenido">
+          <p>
+            TED Tecnología, Entretenimiento, Diseño (en inglés: Technology, Entertainment, Design) es una organización sin fines de lucro dedicada a las "Ideas dignas de difundir" (del inglés: Ideas worth spreading).
+            asuntos globales, tecnología, desarrollo y entretenimiento.
+            TED es ampliamente conocida por su congreso anual (TED Conference) y sus charlas (TED Talks) que cubren un amplio espectro de temas que incluyen ciencias, arte y diseño, política, educación, cultura, negocios,
+          </p>
+          <p>
+            A través de esta pagina puedes consultar y registarte para asistir a las diferentes conferencias que se darán en el
+            plantel Colomos del CETI.
+          </p>
+          <p>
+            TEDx son eventos independientes pero en la misma línea que TED, que pueden ser organizados por quien obtenga una licencia gratuita de TED pero acordando de antemano seguir ciertos principios Los eventos
+            son sin ánimo de lucro, pero pueden cobrar la entrada o buscar patrocinadores para cubrir costes. De la misma manera, los conferenciantes no cobran. Además, deben renunciar a los derechos de copyright
+            de los materiales generados, para que TED pueda editarlos y distribuirlos bajo una licencia Creative Commons.
+          </p>
+        </div>
     </h:body>
 </html>
-
