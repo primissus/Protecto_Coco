@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.Conferencia;
+import modelo.Usuario;
 
 /**
  *
@@ -73,7 +74,22 @@ public class registro_conferencia extends HttpServlet {
         catch(NumberFormatException ex) {
             Logger.getLogger(registro_conferencia.class.getName()).log(Level.SEVERE, null, ex);
         }
-        String encargado = request.getParameter("encargado");
+        int encargadoID = -1;
+        try {
+            encargadoID = Integer.parseInt(request.getParameter("encargado_id"));
+        }
+        catch(NumberFormatException ex) {
+            Logger.getLogger(registro_conferencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        EntityManager em;
+        EntityManagerFactory emf;
+        emf = Persistence.createEntityManagerFactory("Proyecto_CocoPU");
+        em =emf.createEntityManager();
+        
+        Usuario encargado = new Usuario(-1, "", "", "", "", "");
+        if(encargadoID != -1) {
+            encargado = em.find(Usuario.class, encargadoID);
+        }
         
         Conferencia conferencia = new Conferencia();
         conferencia.setId(0);
@@ -85,12 +101,11 @@ public class registro_conferencia extends HttpServlet {
         conferencia.setSala(sala);
         conferencia.setCosto(costo);
         conferencia.setEncargado(encargado);
+        //conferencia.setEncargadoID(encargadoID);
+        //System.out.println(conferencia.toString());
+        System.out.println(String.valueOf(encargadoID));
         
         try {
-        EntityManager em;
-          EntityManagerFactory emf;
-          emf = Persistence.createEntityManagerFactory("Proyecto_CocoPU");
-          em =emf.createEntityManager();
           em.getTransaction().begin();
           em.persist(conferencia);
           //em.flush();
@@ -101,6 +116,7 @@ public class registro_conferencia extends HttpServlet {
          }
         catch(Exception ex){
             mensaje("Ocurrió un error.", response.getWriter());
+            System.out.println(ex.toString());
         }
           
         //response.sendRedirect("index.xhtml");

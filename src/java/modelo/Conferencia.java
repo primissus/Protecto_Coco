@@ -10,9 +10,12 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -24,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author law
+ * @author trafalgar
  */
 @Entity
 @Table(name = "conferencia")
@@ -80,10 +83,10 @@ public class Conferencia implements Serializable {
     @NotNull
     @Column(name = "costo")
     private int costo;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "encargado")
-    private int encargado;
+    
+    @ManyToOne
+    @JoinColumn(name="encargado")
+    private Usuario encargado;
 
     public Conferencia() {
     }
@@ -92,7 +95,7 @@ public class Conferencia implements Serializable {
         this.id = id;
     }
 
-    public Conferencia(Integer id, String nombre, String expositor, int capacidad, Date fechaHora, int sala, String descripcion, int costo, int encargado) {
+    public Conferencia(Integer id, String nombre, String expositor, int capacidad, Date fechaHora, int sala, String descripcion, int costo) {
         this.id = id;
         this.nombre = nombre;
         this.expositor = expositor;
@@ -101,7 +104,6 @@ public class Conferencia implements Serializable {
         this.sala = sala;
         this.descripcion = descripcion;
         this.costo = costo;
-        this.encargado = encargado;
     }
 
     public Integer getId() {
@@ -168,11 +170,11 @@ public class Conferencia implements Serializable {
         this.costo = costo;
     }
 
-    public int getEncargado() {
+    public Usuario getEncargado() {
         return encargado;
     }
 
-    public void setEncargado(int encargado) {
+    public void setEncargado(Usuario encargado) {
         this.encargado = encargado;
     }
 

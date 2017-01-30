@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author law
+ * @author trafalgar
  */
 @Entity
 @Table(name = "publico")

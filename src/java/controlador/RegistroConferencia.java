@@ -14,6 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import modelo.Conferencia;
+import modelo.Usuario;
 
 /**
  *
@@ -21,7 +22,17 @@ import modelo.Conferencia;
  */
 public class RegistroConferencia {
     
-    public static int createEvent(String nombre, String expositor, int capacidad, Date date, String descripcion, int costo, int sala, String encargado) {
+    public static int createEvent(String nombre, String expositor, int capacidad, Date date, String descripcion, int costo, int sala, int encargadoID) {
+        
+        EntityManager em;
+        EntityManagerFactory emf;
+        emf = Persistence.createEntityManagerFactory("Proyecto_CocoPU");
+        em =emf.createEntityManager();
+        
+        Usuario encargado = new Usuario(-1, "", "", "", "", "");
+        if(encargadoID != -1) {
+            encargado = em.find(Usuario.class, encargadoID);
+        }
         
         Conferencia conferencia = new Conferencia();
         conferencia.setId(0);
@@ -35,10 +46,6 @@ public class RegistroConferencia {
         conferencia.setEncargado(encargado);
         
         try {
-        EntityManager em;
-          EntityManagerFactory emf;
-          emf = Persistence.createEntityManagerFactory("Proyecto_CocoPU");
-          em = emf.createEntityManager();
           em.getTransaction().begin();
           em.persist(conferencia);
           //em.flush();

@@ -33,6 +33,6 @@
                 <input type="submit" name="submit" value="Cancelar"/>
                 </div>
             </form>
-                <a href="administrador_evento.jsp">Regresar</a>
+                <a href="administrador_evento.xhtml">Regresar</a>
     </body>
 </html>
