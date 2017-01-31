@@ -12,7 +12,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.servlet.http.HttpSession;
 import modelo.Conferencia;
+import modelo.Usuario;
 
 /**
  *
@@ -23,6 +25,7 @@ import modelo.Conferencia;
 public class ConferenciasBean {
     
     List<Conferencia> conferencias;
+    List<Conferencia> conferenciasEncargado;
 
     public ConferenciasBean() {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("Proyecto_CocoPU");
@@ -39,6 +42,23 @@ public class ConferenciasBean {
 
     public void setConferencias(List<Conferencia> conferencias) {
         this.conferencias = conferencias;
+    }
+
+    public List<Conferencia> getConferenciasEncargado() {
+        initConferencias();
+        return conferenciasEncargado;
+    }
+
+    public void setConferenciasEncargado(List<Conferencia> conferenciasEncargado) {
+        this.conferenciasEncargado = conferenciasEncargado;
+    }
+    
+    private void initConferencias() {
+        List<Conferencia> conferencias;
+        HttpSession session = SesionUtils.getSession();
+        int idUsuario = (Integer) session.getAttribute("id");
+        Usuario usuario = Selector.getUser(idUsuario);
+        conferenciasEncargado = usuario.getConferencias();
     }
     
 }

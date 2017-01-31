@@ -45,7 +45,13 @@ public class LoginBean implements Serializable{
             HttpSession sesion = SesionUtils.getSession();
             sesion.setAttribute("username", usuario.getUsername());
             sesion.setAttribute("tipo", usuario.getTipo());
-            return 1;
+            sesion.setAttribute("id", usuario.getId());
+            if(usuario.getTipo().equals("adm")) {
+                return 1;
+            }
+            if(usuario.getTipo().equals("enc")) {
+                return 2;
+            }
         }
         else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Usaurio y contraseña incorrectos", "Por favor ingresa un usuario y contraseña correctos"));

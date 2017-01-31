@@ -10,6 +10,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import modelo.Conferencia;
+import modelo.Publico;
 import modelo.Usuario;
 
 /**
@@ -29,6 +31,32 @@ public class Selector {
         emfactory.close();
         
         return usuarios;
+    }
+    
+    public static Usuario getUser(int id) {
+        EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "Proyecto_CocoPU" );
+        EntityManager entitymanager = emfactory.createEntityManager();
+        
+        Usuario usuario = null;
+        usuario = entitymanager.find(Usuario.class, id);
+        
+        entitymanager.close();
+        emfactory.close();
+        
+        return usuario;
+    }
+    
+    public static List<Publico> getPublico(int conferenciaId) {
+        EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "Proyecto_CocoPU" );
+        EntityManager entitymanager = emfactory.createEntityManager();
+        
+        Conferencia conferencia = null;
+        conferencia = entitymanager.find(Conferencia.class, conferenciaId);
+        
+        entitymanager.close();
+        emfactory.close();
+        
+        return conferencia.getPublico();
     }
 
 }

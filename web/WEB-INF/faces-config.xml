@@ -8,6 +8,11 @@
         <from-view-id>login.xhtml</from-view-id>
         <navigation-case>
             <from-action>#{loginBean.logIn}</from-action>
+            <from-outcome>2</from-outcome>
+            <to-view-id>encargado_evento.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{loginBean.logIn}</from-action>
             <from-outcome>1</from-outcome>
             <to-view-id>administrador_evento.xhtml</to-view-id>
         </navigation-case>

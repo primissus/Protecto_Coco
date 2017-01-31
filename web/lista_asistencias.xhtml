@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Asistencias de evento</title>
+    </h:head>
+    <h:body>
+        <h:selectOneMenu id="conferencia" value="#{asistentes.conferenciaID}" onselect="#{asistentes.updatePublico()}">
+            <f:ajax event="change" listener="#{asistentes.updatePublico()}" execute="conferencia" render="@form" />
+            <f:selectItems value="#{conferencias.conferenciasEncargado}" var="conf" itemValue="#{conf.id}" itemLabel="#{conf.nombre}"/>
+        </h:selectOneMenu>
+        
+        
+        <h:form>
+            <h:dataTable value="#{asistentes.publico}" var="p"
+                         styleClass="table"
+                         headerClass="table_header"
+                         columnClasses="table_column"
+                         rowClasses="table-odd-row,table-even-row"
+                         id="publico"
+                         rendered="false">
+            <h:column>
+                    <f:facet name="header">Id</f:facet>
+                    #{p.id}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Nombre</f:facet>
+                    #{p.nombre}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Expositor</f:facet>
+                    #{p.expositor}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Domicilio</f:facet>
+                    #{p.domicilio}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Telefono</f:facet>
+                    #{p.telefono}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Correo</f:facet>
+                    #{p.correo}
+                </h:column>
+        </h:dataTable>
+        </h:form>
+    </h:body>
+</html>
+

@@ -6,12 +6,14 @@
 package modelo;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -61,6 +63,9 @@ public class Publico implements Serializable {
     @Size(min = 1, max = 40)
     @Column(name = "correo")
     private String correo;
+    
+    @ManyToMany(mappedBy = "publico")
+    private List<Conferencia> conferencias;
 
     public Publico() {
     }
@@ -115,6 +120,14 @@ public class Publico implements Serializable {
 
     public void setCorreo(String correo) {
         this.correo = correo;
+    }
+
+    public List<Conferencia> getConferencias() {
+        return conferencias;
+    }
+
+    public void setConferencias(List<Conferencia> conferencias) {
+        this.conferencias = conferencias;
     }
 
     @Override

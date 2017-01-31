@@ -7,6 +7,7 @@ package modelo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +16,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -87,6 +90,12 @@ public class Conferencia implements Serializable {
     @ManyToOne
     @JoinColumn(name="encargado")
     private Usuario encargado;
+    
+    @ManyToMany
+    @JoinTable(name = "asistencia",
+            joinColumns = @JoinColumn(name = "id_conferencia", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "id_usuario", referencedColumnName = "id"))
+    private List<Publico> publico;
 
     public Conferencia() {
     }
@@ -176,6 +185,14 @@ public class Conferencia implements Serializable {
 
     public void setEncargado(Usuario encargado) {
         this.encargado = encargado;
+    }
+
+    public List<Publico> getPublico() {
+        return publico;
+    }
+
+    public void setPublico(List<Publico> publico) {
+        this.publico = publico;
     }
 
     @Override
