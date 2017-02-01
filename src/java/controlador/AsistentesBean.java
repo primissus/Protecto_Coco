@@ -28,6 +28,12 @@ public class AsistentesBean {
     public AsistentesBean() {
         conferenciaID = 0;
         publico = new ArrayList<>();
+        HttpSession session = SesionUtils.getSession();
+        int idUsuario = (Integer) session.getAttribute("id");
+        Usuario usuario = Selector.getUser(idUsuario);
+        if(usuario.getConferencias() != null && !usuario.getConferencias().isEmpty())
+            conferenciaID = usuario.getConferencias().get(0).getId();
+        updatePublico();
     }
     
     public int getConferenciaID() {
@@ -35,6 +41,7 @@ public class AsistentesBean {
     }
 
     public void setConferenciaID(int conferenciaID) {
+        System.out.println("setted");
         this.conferenciaID = conferenciaID;
     }
 
@@ -50,9 +57,8 @@ public class AsistentesBean {
         publico = Selector.getPublico(conferenciaID);
     }
     
-    public final void selectConferencia(final AjaxBehaviorEvent event){
-        System.out.println(String.valueOf(conferenciaID));
-        Selector.getPublico(conferenciaID);
+    public void listener(AjaxBehaviorEvent event) {
+        publico = Selector.getPublico(conferenciaID);
     }
     
 }

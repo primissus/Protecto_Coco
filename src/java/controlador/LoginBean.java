@@ -36,10 +36,14 @@ public class LoginBean implements Serializable{
     }
     
     public int logIn() {
-        if(username == null || password == null)
+        if(username == null || password == null) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error desconocido", "Ocurrio un error inesperado"));
             return -2;
-        if(username.isEmpty() || password.isEmpty())
+        }
+        if(username.isEmpty() || password.isEmpty()) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Usuario o contraseña vacios", "Por favor ingresa un usuario y contraseña correctos"));
             return -1;
+        }
         Usuario usuario = Login.validate(username, password);
         if(usuario != null) {
             HttpSession sesion = SesionUtils.getSession();

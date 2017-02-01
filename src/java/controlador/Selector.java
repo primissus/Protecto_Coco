@@ -5,6 +5,7 @@
  */
 package controlador;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -50,12 +51,14 @@ public class Selector {
         EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "Proyecto_CocoPU" );
         EntityManager entitymanager = emfactory.createEntityManager();
         
-        Conferencia conferencia = null;
+        Conferencia conferencia;
         conferencia = entitymanager.find(Conferencia.class, conferenciaId);
         
         entitymanager.close();
         emfactory.close();
-        
+        if(conferencia == null) {
+            return new ArrayList<>();
+        }
         return conferencia.getPublico();
     }
 

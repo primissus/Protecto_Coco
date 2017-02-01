@@ -5,33 +5,33 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Asistencias de evento</title>
+        <link rel="stylesheet" type="text/css" href="styles/lista_registrados.css"/>
+        <link rel="stylesheet" type="text/css" href="styles/lista_asistencias.css"/>
     </h:head>
     <h:body>
-        <h:selectOneMenu id="conferencia" value="#{asistentes.conferenciaID}" onselect="#{asistentes.updatePublico()}">
-            <f:ajax event="change" listener="#{asistentes.updatePublico()}" execute="conferencia" render="@form" />
-            <f:selectItems value="#{conferencias.conferenciasEncargado}" var="conf" itemValue="#{conf.id}" itemLabel="#{conf.nombre}"/>
-        </h:selectOneMenu>
-        
-        
+
         <h:form>
+            <h:outputText value="Conferencias asingnadas"/>
+            <h:selectOneMenu id="conferencia" value="#{asistentes.conferenciaID}">
+                <f:ajax event="change" listener="#{asistentes.listener}" execute="conferencia" render="publico" />
+                <f:selectItems value="#{conferencias.conferenciasEncargado}" var="conf" itemValue="#{conf.id}" itemLabel="#{conf.nombre}"/>
+            </h:selectOneMenu>
+            
+            <br/><br/><br/>
+            <h:outputText value="Publico asistente"/>
             <h:dataTable value="#{asistentes.publico}" var="p"
                          styleClass="table"
                          headerClass="table_header"
                          columnClasses="table_column"
                          rowClasses="table-odd-row,table-even-row"
-                         id="publico"
-                         rendered="false">
-            <h:column>
+                         id="publico">
+                <h:column>
                     <f:facet name="header">Id</f:facet>
                     #{p.id}
                 </h:column>
                 <h:column>
                     <f:facet name="header">Nombre</f:facet>
                     #{p.nombre}
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Expositor</f:facet>
-                    #{p.expositor}
                 </h:column>
                 <h:column>
                     <f:facet name="header">Domicilio</f:facet>
@@ -45,8 +45,14 @@
                     <f:facet name="header">Correo</f:facet>
                     #{p.correo}
                 </h:column>
-        </h:dataTable>
+                <h:column>
+                    <f:facet name="header">Conferencia a las que asistirá</f:facet>
+                    #{p.conferencias.size()}
+                </h:column>
+            </h:dataTable>
+            
+            <br/>
+            <h:commandLink action="encargado_evento.xhtml" value="Regresar"/>
         </h:form>
     </h:body>
 </html>
-

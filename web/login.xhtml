@@ -1,21 +1,23 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 <h:head>
     <title>Facelet Title</title>
+    <link rel="stylesheet" href="styles/login.css"/>
 </h:head>
-<h:body>
+<h:body class="login-page">
+  <div class="form">
     <h:form>
-        <h:outputText value="Usuario:" />
-        <h:inputText id="username" value="#{loginBean.username}" />
+        <h:inputText id="username" value="#{loginBean.username}" maxlength="20" a:placeholder="Usuario"/>
         <br/>
-        <h:outputText value="Contraseña:" />
-        <h:inputSecret id="password" value="#{loginBean.password}" />
+        <h:inputSecret id="password" value="#{loginBean.password}" maxlength="20" a:placeholder="Contraseña"/>
         <br/><br/>
         <h:message for="password"></h:message>
         <br/>
-        <h:commandButton action="#{loginBean.logIn}" value="Login"></h:commandButton>
+        <h:commandButton class="button" action="#{loginBean.logIn}" value="Login"></h:commandButton>
     </h:form>
+  </div>
 </h:body>
 
 </html>
