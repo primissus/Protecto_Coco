@@ -61,5 +61,30 @@ public class Selector {
         }
         return conferencia.getPublico();
     }
+    
+    public static Conferencia getConferencia(int id) {
+        EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "Proyecto_CocoPU" );
+        EntityManager entitymanager = emfactory.createEntityManager();
+        
+        Conferencia conferencia = entitymanager.find(Conferencia.class, id);
+        
+        entitymanager.close();
+        emfactory.close();
+        return conferencia;
+    }
+    
+    public static Publico getPublico(String correo) {
+        EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "Proyecto_CocoPU" );
+        EntityManager entitymanager = emfactory.createEntityManager();
+        
+        Query query = entitymanager.createQuery("Select p From Publico p Where p.correo = '" + correo + "'");
+        Publico publico = null;
+        List<Publico> personas = query.getResultList();
+        publico = (personas.size() > 0)? personas.get(0) : null;
+        
+        entitymanager.close();
+        emfactory.close();
+        return publico;
+    }
 
 }

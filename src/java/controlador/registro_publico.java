@@ -7,15 +7,19 @@ package controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.Asistencia;
+import modelo.Conferencia;
+import modelo.Publico;
 
 /**
  *
@@ -46,29 +50,61 @@ public class registro_publico extends HttpServlet {
                   int conferenciaID = Integer.parseInt(request.getParameter("id"));
                               
                   
-                  modelo.Publico registro = new modelo.Publico();
+                  modelo.Publico registro = null;
        
 
-                 registro.setId(0);
-                 registro.setNombre(nombre);
-                 registro.setDomicilio(domicilio);
-                 registro.setTelefono(telefono_contacto);
-                 registro.setCorreo(correo);
+                 
                  
           try {       
             EntityManager em;
             EntityManagerFactory emf;
             emf = Persistence.createEntityManagerFactory("Proyecto_CocoPU");
             em = emf.createEntityManager();
-            em.getTransaction().begin();
-            em.persist(registro);
-            em.flush();
-            em.getTransaction().commit(); 
+            
+            Conferencia conferencia = em.find(Conferencia.class, conferenciaID);
+            
+            //Checa si el usaurio ya existe a traves del correo
+            Publico publico = Selector.getPublico(correo);
+            
+            //Si ya existe lo actualiza y sino lo crea
+            if(publico != null) {
+                registro = publico;
+                registro.setNombre(nombre);
+                registro.setDomicilio(domicilio);
+                registro.setTelefono(telefono_contacto);
+                
+                em.getTransaction().begin();
+                em.merge(registro);
+                em.getTransaction().commit();
+                
+                //No permite que se vuelva a registrar alguien ya registrado
+                for(Asistencia asist : registro.getAsistencias()) {
+                    if(asist.getIdConferencia() == conferenciaID) {
+                        mensaje("No es posible volverse a registrar en la misma conferencia", response.getWriter());
+                        return;
+                    }
+                }
+            }
+            else {
+                registro = new modelo.Publico();
+                registro.setId(0);
+                registro.setNombre(nombre);
+                registro.setDomicilio(domicilio);
+                registro.setTelefono(telefono_contacto);
+                registro.setCorreo(correo);
+                em.getTransaction().begin();
+                em.persist(registro);
+                em.flush();
+                em.getTransaction().commit(); 
+            }
             
             Asistencia asistencia = new Asistencia();
             asistencia.setId(0);
             asistencia.setIdConferencia(conferenciaID);
             asistencia.setIdUsuario(registro.getId());
+            asistencia.setAsiste(false);
+            asistencia.setConferencia(conferencia);
+            asistencia.setPublico(registro);
             
             em.getTransaction().begin();
             em.persist(asistencia);
@@ -78,7 +114,7 @@ public class registro_publico extends HttpServlet {
             em.close();
             emf.close();
             
-            mensaje("Registrado: " + registro.getId(), response.getWriter());
+            mensaje("Registrado con codigo: " + asistencia.getId(), response.getWriter());
             return;
           }
           catch(Exception ex){

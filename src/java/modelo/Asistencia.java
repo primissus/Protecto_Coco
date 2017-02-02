@@ -6,14 +6,17 @@
 package modelo;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -46,18 +49,29 @@ public class Asistencia implements Serializable {
     @NotNull
     @Column(name = "id_conferencia")
     private int idConferencia;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "asiste")
+    private boolean asiste;
+    
+    @ManyToOne
+    @PrimaryKeyJoinColumn(name = "id_usuario", referencedColumnName = "id")
+    private Publico publico;
+    
+    @ManyToOne
+    @PrimaryKeyJoinColumn(name = "id_conferencia", referencedColumnName = "id")
+    private Conferencia conferencia;
 
     public Asistencia() {
     }
-
-    public Asistencia(Integer id) {
-        this.id = id;
-    }
-
-    public Asistencia(Integer id, int idUsuario, int idConferencia) {
+    
+    public Asistencia(Integer id, int idUsuario, int idConferencia, Publico publico, Conferencia conferencia) {
         this.id = id;
         this.idUsuario = idUsuario;
         this.idConferencia = idConferencia;
+        this.publico = publico;
+        this.conferencia = conferencia;
+        this.asiste = false;
     }
 
     public Integer getId() {
@@ -82,6 +96,30 @@ public class Asistencia implements Serializable {
 
     public void setIdConferencia(int idConferencia) {
         this.idConferencia = idConferencia;
+    }
+
+    public boolean isAsiste() {
+        return asiste;
+    }
+
+    public void setAsiste(boolean asiste) {
+        this.asiste = asiste;
+    }
+
+    public Publico getPublico() {
+        return publico;
+    }
+
+    public void setPublico(Publico publico) {
+        this.publico = publico;
+    }
+
+    public Conferencia getConferencia() {
+        return conferencia;
+    }
+
+    public void setConferencia(Conferencia conferencia) {
+        this.conferencia = conferencia;
     }
 
     @Override

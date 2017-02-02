@@ -11,6 +11,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.servlet.http.HttpSession;
+import modelo.Asistencia;
+import modelo.Conferencia;
 import modelo.Publico;
 import modelo.Usuario;
 
@@ -54,11 +56,12 @@ public class AsistentesBean {
     }
     
     public void updatePublico() {
-        List<Publico> personas = Selector.getPublico(conferenciaID);
+        Conferencia conferencia = Selector.getConferencia(conferenciaID);
         publico.clear();
-        for(Publico persona : personas) {
-            if(persona.isAsiste()) {
-                publico.add(persona);
+        if(conferencia != null) {
+            for(Asistencia asistencia : conferencia.getAsistencias()) {
+                if(asistencia.isAsiste())
+                    publico.add(asistencia.getPublico());
             }
         }
     }

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 02, 2017 at 06:00 
+-- Generation Time: Feb 02, 2017 at 09:22 
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.23
 
@@ -29,18 +29,19 @@ SET time_zone = "+00:00";
 CREATE TABLE `asistencia` (
   `id` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
-  `id_conferencia` int(11) NOT NULL
+  `id_conferencia` int(11) NOT NULL,
+  `asiste` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `asistencia`
 --
 
-INSERT INTO `asistencia` (`id`, `id_usuario`, `id_conferencia`) VALUES
-(1, 1, 1),
-(2, 2, 1),
-(3, 3, 1),
-(4, 4, 1);
+INSERT INTO `asistencia` (`id`, `id_usuario`, `id_conferencia`, `asiste`) VALUES
+(1, 1, 1, 0),
+(2, 2, 1, 0),
+(3, 3, 1, 0),
+(5, 1, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -81,19 +82,18 @@ CREATE TABLE `publico` (
   `nombre` varchar(30) NOT NULL,
   `domicilio` varchar(40) NOT NULL,
   `telefono` varchar(10) NOT NULL,
-  `correo` varchar(40) NOT NULL,
-  `asiste` tinyint(1) NOT NULL DEFAULT '0'
+  `correo` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `publico`
 --
 
-INSERT INTO `publico` (`id`, `nombre`, `domicilio`, `telefono`, `correo`, `asiste`) VALUES
-(1, 'abc', 'abc', '123', 'abc', 0),
-(2, 'abcd', 'abcd', '134', 'abcd', 0),
-(3, 'abcde', 'abcde', 'abcde', 'abcde', 0),
-(4, 'abcdef', 'abcdef', '135', 'abcdef', 0);
+INSERT INTO `publico` (`id`, `nombre`, `domicilio`, `telefono`, `correo`) VALUES
+(1, 'abc', 'abc', '123', 'abc'),
+(2, 'abcd', 'abcd', '134', 'abcd'),
+(3, 'abcde', 'abcde', 'abcde', 'abcde'),
+(4, 'abcdef', 'abcdef', '135', 'abcdef');
 
 -- --------------------------------------------------------
 
@@ -156,7 +156,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT for table `asistencia`
 --
 ALTER TABLE `asistencia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `conferencia`
 --

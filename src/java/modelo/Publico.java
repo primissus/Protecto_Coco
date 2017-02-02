@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -63,13 +64,12 @@ public class Publico implements Serializable {
     @Size(min = 1, max = 40)
     @Column(name = "correo")
     private String correo;
-    @NotNull
-    @Size(min = 1, max = 1)
-    @Column(name = "asiste")
-    private boolean asiste;
     
     @ManyToMany(mappedBy = "publico")
     private List<Conferencia> conferencias;
+    
+    @OneToMany(mappedBy = "publico")
+    private List<Asistencia> asistencias;
 
     public Publico() {
     }
@@ -126,14 +126,6 @@ public class Publico implements Serializable {
         this.correo = correo;
     }
 
-    public boolean isAsiste() {
-        return asiste;
-    }
-
-    public void setAsiste(boolean asiste) {
-        this.asiste = asiste;
-    }
-
     public List<Conferencia> getConferencias() {
         return conferencias;
     }
@@ -141,6 +133,16 @@ public class Publico implements Serializable {
     public void setConferencias(List<Conferencia> conferencias) {
         this.conferencias = conferencias;
     }
+
+    public List<Asistencia> getAsistencias() {
+        return asistencias;
+    }
+
+    public void setAsistencias(List<Asistencia> asistencias) {
+        this.asistencias = asistencias;
+    }
+    
+    
 
     @Override
     public int hashCode() {

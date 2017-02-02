@@ -6,6 +6,7 @@
 package modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -21,6 +22,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -90,6 +92,9 @@ public class Conferencia implements Serializable {
     @ManyToOne
     @JoinColumn(name="encargado")
     private Usuario encargado;
+    
+    @OneToMany(mappedBy = "conferencia")
+    private List<Asistencia> asistencias;
     
     @ManyToMany
     @JoinTable(name = "asistencia",
@@ -193,6 +198,24 @@ public class Conferencia implements Serializable {
 
     public void setPublico(List<Publico> publico) {
         this.publico = publico;
+    }
+
+    public List<Asistencia> getAsistencias() {
+        return asistencias;
+    }
+
+    public void setAsistencias(List<Asistencia> asistencias) {
+        this.asistencias = asistencias;
+    }
+    
+    public List<Publico> getAsistencia() {
+        List<Publico> publicoAsistente = new ArrayList<>();
+        for(Asistencia asistencia : asistencias) {
+            if(asistencia.isAsiste()) {
+                publicoAsistente.add(asistencia.getPublico());
+            }
+        }
+        return publicoAsistente;
     }
 
     @Override

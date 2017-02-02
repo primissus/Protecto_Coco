@@ -50,18 +50,13 @@ public class registro_asistencia extends HttpServlet {
                 
                 EntityManagerFactory emf = Persistence.createEntityManagerFactory( "Proyecto_CocoPU" );
                 EntityManager em = emf.createEntityManager();
-                modelo.Publico publico  = em.find(modelo.Publico.class, id);
-                if(publico != null) {
-                    Asistencia asistencia = new Asistencia();
-                    asistencia.setId(0);
-                    asistencia.setIdConferencia(id);
-                    asistencia.setIdUsuario(codigo);
-                    
+                Asistencia asistencia = em.find(Asistencia.class, codigo);
+                if(asistencia != null && asistencia.getConferencia().getId() == id) {
+                    asistencia.setAsiste(true);
                     em.getTransaction().begin();
-                    em.persist(asistencia);
+                    em.merge(asistencia);
                     em.getTransaction().commit();
-                    em.close();
-                    emf.close();
+                    
                     response.sendRedirect("correcto.jsp");
                 }
                 else {
