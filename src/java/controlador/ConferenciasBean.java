@@ -54,7 +54,6 @@ public class ConferenciasBean {
     }
     
     private void initConferencias() {
-        List<Conferencia> conferencias;
         HttpSession session = SesionUtils.getSession();
         int idUsuario = (Integer) session.getAttribute("id");
         Usuario usuario = Selector.getUser(idUsuario);

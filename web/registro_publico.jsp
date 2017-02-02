@@ -55,6 +55,6 @@
     <p><input type="submit" value="Enviar"></p>
 </form>
         
-    <a href="administrador_evento.xhtml">Regresar</a>    
+    <a href="index.xhtml">Regresar</a>    
     </body>
 </html>

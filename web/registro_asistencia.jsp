@@ -13,7 +13,9 @@
                 javax.persistence.EntityManager,
                 modelo.Conferencia,
                 javax.persistence.Persistence,
-                javax.persistence.Query" %>
+                javax.persistence.Query,
+                java.util.Date,
+                java.util.concurrent.TimeUnit" %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
@@ -28,11 +30,19 @@
 
                         Query query = entitymanager.createQuery("Select c From Conferencia c ");
                         List<Conferencia> conferencias = query.getResultList();
+                        
 
                         for(Conferencia conferencia : conferencias) {
-                    %> 
-                    <option value=<%= conferencia.getId() %>><%= conferencia.getNombre() %></option>
-                    <%
+                            if(conferencia.getPublico().size() < conferencia.getCapacidad()) {
+                                Date hoy = new Date();
+                                long diff =  conferencia.getFechaHora().getTime() - hoy.getTime();
+                                long horas = diff / 1000 / 60 / 60;
+                                if(horas >= 24) {
+                                    %> 
+                                    <option value=<%= conferencia.getId() %>><%= conferencia.getNombre() %></option>
+                                    <%
+                                }
+                            }
                         }
                     %>
                 </select>

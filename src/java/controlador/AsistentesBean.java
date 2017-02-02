@@ -54,11 +54,17 @@ public class AsistentesBean {
     }
     
     public void updatePublico() {
-        publico = Selector.getPublico(conferenciaID);
+        List<Publico> personas = Selector.getPublico(conferenciaID);
+        publico.clear();
+        for(Publico persona : personas) {
+            if(persona.isAsiste()) {
+                publico.add(persona);
+            }
+        }
     }
     
     public void listener(AjaxBehaviorEvent event) {
-        publico = Selector.getPublico(conferenciaID);
+        updatePublico();
     }
     
 }

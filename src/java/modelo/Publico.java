@@ -63,6 +63,10 @@ public class Publico implements Serializable {
     @Size(min = 1, max = 40)
     @Column(name = "correo")
     private String correo;
+    @NotNull
+    @Size(min = 1, max = 1)
+    @Column(name = "asiste")
+    private boolean asiste;
     
     @ManyToMany(mappedBy = "publico")
     private List<Conferencia> conferencias;
@@ -120,6 +124,14 @@ public class Publico implements Serializable {
 
     public void setCorreo(String correo) {
         this.correo = correo;
+    }
+
+    public boolean isAsiste() {
+        return asiste;
+    }
+
+    public void setAsiste(boolean asiste) {
+        this.asiste = asiste;
     }
 
     public List<Conferencia> getConferencias() {

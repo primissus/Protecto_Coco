@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 31, 2017 at 09:00 
+-- Generation Time: Feb 02, 2017 at 06:00 
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.23
 
@@ -81,18 +81,19 @@ CREATE TABLE `publico` (
   `nombre` varchar(30) NOT NULL,
   `domicilio` varchar(40) NOT NULL,
   `telefono` varchar(10) NOT NULL,
-  `correo` varchar(40) NOT NULL
+  `correo` varchar(40) NOT NULL,
+  `asiste` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `publico`
 --
 
-INSERT INTO `publico` (`id`, `nombre`, `domicilio`, `telefono`, `correo`) VALUES
-(1, 'abc', 'abc', '123', 'abc'),
-(2, 'abcd', 'abcd', '134', 'abcd'),
-(3, 'abcde', 'abcde', 'abcde', 'abcde'),
-(4, 'abcdef', 'abcdef', '135', 'abcdef');
+INSERT INTO `publico` (`id`, `nombre`, `domicilio`, `telefono`, `correo`, `asiste`) VALUES
+(1, 'abc', 'abc', '123', 'abc', 0),
+(2, 'abcd', 'abcd', '134', 'abcd', 0),
+(3, 'abcde', 'abcde', 'abcde', 'abcde', 0),
+(4, 'abcdef', 'abcdef', '135', 'abcdef', 0);
 
 -- --------------------------------------------------------
 

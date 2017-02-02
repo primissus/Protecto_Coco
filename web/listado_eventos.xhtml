@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Eventos</title>
+        <link rel="stylesheet" href="styles/lista_registrados.css"/>
+    </h:head>
+    <h:body>
+
+        <h:form>
+
+            <h:dataTable value="#{conferencias.conferenciasEncargado}" var="c"
+                         styleClass="table"
+                         headerClass="table_header"
+                         columnClasses="table_column"
+                         rowClasses="table-odd-row,table-even-row">
+
+                <h:column>
+                    <f:facet name="header">Id</f:facet>
+                    #{c.id}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Nombre</f:facet>
+                    #{c.nombre}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Expositor</f:facet>
+                    #{c.expositor}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Costo</f:facet>
+                    $#{c.costo}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Fecha y hora</f:facet>
+                    #{formatter.format(c.fechaHora)}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Sala</f:facet>
+                    $#{c.sala}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Capacidad</f:facet>
+                    #{c.capacidad}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Publico</f:facet>
+                    #{c.publico.size()}
+                </h:column>
+
+            </h:dataTable>
+
+        </h:form>
+
+    </h:body>
+</html>
